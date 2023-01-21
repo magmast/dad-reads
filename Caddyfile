@@ -1,0 +1,7 @@
+:80 {
+    @notAsset not path /assets/* 
+    
+    root * /var/www/html
+    rewrite @notAsset /index.html
+    file_server
+}

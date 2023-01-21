@@ -7,4 +7,5 @@ RUN corepack enable &&\
     pnpm build
 
 FROM caddy:alpine
-COPY --from=build /opt/dad-reads/dist /usr/share/caddy
+COPY ./Caddyfile /etc/caddy/Caddyfile
+COPY --from=build /opt/dad-reads/dist /var/www/html
