@@ -10,6 +10,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@fontsource/montserrat": "^4.5.14",
     "@solidjs/router": "^0.7.0",
     "@tanstack/solid-query": "^4.22.0",
     "clsx": "^1.2.1",

@@ -1,11 +1,14 @@
 import { createQuery } from "@tanstack/solid-query";
-import { createMemo, createSignal, For, Show } from "solid-js";
+import { ComponentProps, createMemo, createSignal, For, Show } from "solid-js";
 import { AudiobooksContext } from "../features/audiobooks/context";
 import { Audiobook } from "../features/audiobooks/entity";
 import { useRequiredContext } from "../utils/use-required-context";
 import { createAuthorQuery } from "../features/authors/api/create-author-query";
 import { Player } from "../components/player";
 import { withSession } from "../features/sessions/utils/with-session";
+import { TbLogout } from "solid-icons/tb";
+import { SessionsContext } from "../features/sessions/context";
+import { useNavigate } from "@solidjs/router";
 
 export default withSession(() => {
   const { audiobooksRepository } = useRequiredContext(AudiobooksContext);
@@ -21,17 +24,32 @@ export default withSession(() => {
     audiobooks.data?.find((audiobook) => audiobook.id === selectedAudiobookId())
   );
 
+  const { sessionRepository } = useRequiredContext(SessionsContext);
+
+  const navigate = useNavigate();
+
   return (
     <>
-      <header class="p-2 flex justify-center">
+      <header class="p-4 container mx-auto flex justify-between items-center">
         <h1 class="text-2xl">Audiobooks</h1>
+
+        <button
+          type="button"
+          onClick={() => {
+            sessionRepository.remove();
+            navigate("/sign-in");
+          }}
+        >
+          <TbLogout size={24} />
+        </button>
       </header>
 
-      <main>
-        <ul>
+      <main class="container mx-auto">
+        <ul class="flex flex-wrap">
           <For each={audiobooks.data}>
             {(audiobook) => (
               <AudiobookListItem
+                class="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 2xl:w-1/5"
                 audiobook={audiobook}
                 onClick={() => setSelectedAudiobookId(audiobook.id)}
               />
@@ -47,7 +65,7 @@ export default withSession(() => {
   );
 });
 
-interface AudiobookListItemProps {
+interface AudiobookListItemProps extends ComponentProps<"li"> {
   audiobook: Audiobook;
   onClick: () => void;
 }
@@ -56,7 +74,7 @@ function AudiobookListItem(props: AudiobookListItemProps) {
   const author = createAuthorQuery(props.audiobook.author);
 
   return (
-    <li>
+    <li {...props}>
       <button class="relative" type="button" onClick={props.onClick}>
         <img src={props.audiobook.image} />
         <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-2">

@@ -1,4 +1,6 @@
 /* @refresh reload */
+import "@fontsource/montserrat/400.css";
+import "@fontsource/montserrat/700.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 import PocketBase from "pocketbase";
 import { render } from "solid-js/web";

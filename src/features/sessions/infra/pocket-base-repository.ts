@@ -29,4 +29,8 @@ export class PocketBaseSessionRepository implements SessionRepository {
       throw error;
     }
   }
+
+  remove() {
+    this.pocketBase.authStore.clear();
+  }
 }
