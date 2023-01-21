@@ -1,9 +1,11 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@solidjs/router': ^0.7.0
   '@tanstack/solid-query': ^4.22.0
   '@types/howler': ^2.2.7
   autoprefixer: ^10.4.13
+  clsx: ^1.2.1
   howler: ^2.2.3
   pocketbase: ^0.10.0
   postcss: ^8.4.21
@@ -17,7 +19,9 @@ specifiers:
   zod: ^3.20.2
 
 dependencies:
+  '@solidjs/router': 0.7.0_solid-js@1.6.6
   '@tanstack/solid-query': 4.22.0_solid-js@1.6.6
+  clsx: 1.2.1
   howler: 2.2.3
   pocketbase: 0.10.0
   rxjs: 7.8.0
@@ -608,6 +612,14 @@ packages:
       fastq: 1.15.0
     dev: true
 
+  /@solidjs/router/0.7.0_solid-js@1.6.6:
+    resolution: {integrity: sha512-8HI84twe5FjYRebSLMAhtkL9bRuTDIlxJK56kjfjU9WKGoUCTaWpCnkuj8Hqde1bWZ0X+GOZxKDfNkn1CjtjxA==}
+    peerDependencies:
+      solid-js: ^1.5.3
+    dependencies:
+      solid-js: 1.6.6
+    dev: false
+
   /@tanstack/query-core/4.22.0:
     resolution: {integrity: sha512-OeLyBKBQoT265f5G9biReijeP8mBxNFwY7ZUu1dKL+YzqpG5q5z7J/N1eT8aWyKuhyDTiUHuKm5l+oIVzbtrjw==}
     dev: false
@@ -755,6 +767,11 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /clsx/1.2.1:
+    resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}
+    engines: {node: '>=6'}
+    dev: false
 
   /color-convert/1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}

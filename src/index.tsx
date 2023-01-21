@@ -1,13 +1,13 @@
 /* @refresh reload */
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 import PocketBase from "pocketbase";
-import { ErrorBoundary, render, Suspense } from "solid-js/web";
+import { render } from "solid-js/web";
 import "tailwindcss/tailwind.css";
-import { App } from "./app";
 import {
   VITE_POCKET_BASE_AUDIOBOOKS_COLLECTION_NAME,
   VITE_POCKET_BASE_AUTHORS_COLLECTION_NAME,
   VITE_POCKET_BASE_URL,
+  VITE_POCKET_BASE_USERS_COLLECTION_NAME,
 } from "./env";
 import { AudioContext } from "./features/audio/context";
 import { HowlerAudioApi } from "./features/audio/infra/howler-api";
@@ -15,6 +15,10 @@ import { AudiobooksContext } from "./features/audiobooks/context";
 import { PocketBaseAudiobooksRepository } from "./features/audiobooks/infra/pocket-base-repository";
 import { AuthorsContext } from "./features/authors/context";
 import { PocketBaseAuthorsRepository } from "./features/authors/infra/pocket-base-repository";
+import { Router } from "@solidjs/router";
+import { App } from "./app";
+import { SessionsContext } from "./features/sessions/context";
+import { PocketBaseSessionRepository } from "./features/sessions/infra/pocket-base-repository";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +34,11 @@ const authorsRepository = new PocketBaseAuthorsRepository(
   VITE_POCKET_BASE_AUTHORS_COLLECTION_NAME
 );
 
+const sessionRepository = new PocketBaseSessionRepository(
+  pocketBase,
+  VITE_POCKET_BASE_USERS_COLLECTION_NAME
+);
+
 const audioApi = new HowlerAudioApi();
 
 render(
@@ -38,11 +47,11 @@ render(
       <AudiobooksContext.Provider value={{ audiobooksRepository }}>
         <AuthorsContext.Provider value={{ authorsRepository }}>
           <AudioContext.Provider value={{ audioApi }}>
-            <ErrorBoundary fallback={<p>Something went wrong.</p>}>
-              <Suspense fallback={<p>Loading...</p>}>
+            <SessionsContext.Provider value={{ sessionRepository }}>
+              <Router>
                 <App />
-              </Suspense>
-            </ErrorBoundary>
+              </Router>
+            </SessionsContext.Provider>
           </AudioContext.Provider>
         </AuthorsContext.Provider>
       </AudiobooksContext.Provider>

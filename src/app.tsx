@@ -1,68 +1,36 @@
-import { createQuery } from "@tanstack/solid-query";
-import { createMemo, createSignal, For, Show } from "solid-js";
-import { AudiobooksContext } from "./features/audiobooks/context";
-import { Audiobook } from "./features/audiobooks/entity";
-import { useRequiredContext } from "./utils/use-required-context";
-import { createAuthorQuery } from "./features/authors/api/create-author-query";
-import { Player } from "./components/player";
+import { Route, Routes } from "@solidjs/router";
+import { ErrorBoundary, lazy, Suspense } from "solid-js";
+import { Progress } from "./components/progress";
+
+const AudiobooksPage = lazy(() => import("./pages/audiobooks"));
+
+const SignInPage = lazy(() => import("./pages/sign-in"));
 
 export function App() {
-  const { audiobooksRepository } = useRequiredContext(AudiobooksContext);
-
-  const audiobooks = createQuery(
-    () => ["audiobooks"],
-    async () => await audiobooksRepository.findAll()
-  );
-
-  const [selectedAudiobookId, setSelectedAudiobookId] = createSignal<string>();
-
-  const selectedAudiobook = createMemo(() =>
-    audiobooks.data?.find((audiobook) => audiobook.id === selectedAudiobookId())
-  );
-
   return (
-    <>
-      <header class="p-2 flex justify-center">
-        <h1 class="text-2xl">Audiobooks</h1>
-      </header>
-
-      <main>
-        <ul>
-          <For each={audiobooks.data}>
-            {(audiobook) => (
-              <AudiobookListItem
-                audiobook={audiobook}
-                onClick={() => setSelectedAudiobookId(audiobook.id)}
-              />
-            )}
-          </For>
-        </ul>
-      </main>
-
-      <Show when={selectedAudiobook()}>
-        <Player audiobook={selectedAudiobook()!} />
-      </Show>
-    </>
+    <ErrorBoundary fallback={<Error />}>
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route path="/" component={AudiobooksPage} />
+          <Route path="/sign-in" component={SignInPage} />
+        </Routes>
+      </Suspense>
+    </ErrorBoundary>
   );
 }
 
-interface AudiobookListItemProps {
-  audiobook: Audiobook;
-  onClick: () => void;
+function Error() {
+  return (
+    <main class="min-h-screen p-4 flex justify-center items-center text-center">
+      <p>Something didn't worked. Please try again later.</p>
+    </main>
+  );
 }
 
-function AudiobookListItem(props: AudiobookListItemProps) {
-  const author = createAuthorQuery(props.audiobook.author);
-
+function Loading() {
   return (
-    <li>
-      <button class="relative" type="button" onClick={props.onClick}>
-        <img src={props.audiobook.image} />
-        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-2">
-          <h2 class="font-bold">{props.audiobook.title}</h2>
-          <p class="text-sm">{author.data?.name}</p>
-        </div>
-      </button>
-    </li>
+    <main class="min-h-screen flex justify-center items-center">
+      <Progress size={12} />
+    </main>
   );
 }

@@ -19,7 +19,9 @@
     "vite-plugin-solid": "^2.5.0"
   },
   "dependencies": {
+    "@solidjs/router": "^0.7.0",
     "@tanstack/solid-query": "^4.22.0",
+    "clsx": "^1.2.1",
     "howler": "^2.2.3",
     "pocketbase": "^0.10.0",
     "rxjs": "^7.8.0",

@@ -16,6 +16,7 @@ import { createAuthorQuery } from "../features/authors/api/create-author-query";
 import { Author } from "../features/authors/entity";
 import { useObservable } from "../utils/use-observable";
 import { useRequiredContext } from "../utils/use-required-context";
+import { Progress } from "./progress";
 
 export interface PlayerProps {
   audiobook: Audiobook;
@@ -40,7 +41,7 @@ export function Player(props: PlayerProps) {
         <Suspense
           fallback={
             <div class="h-[68px] flex items-center justify-center">
-              <p class="p-2">Loading...</p>
+              <Progress size={6} />
             </div>
           }
         >
