@@ -6,8 +6,6 @@ import {
   Suspense,
   createEffect,
   createResource,
-  on,
-  onCleanup,
 } from "solid-js";
 
 import { AudioContext } from "../features/audio/context";

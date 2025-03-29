@@ -1,4 +1,4 @@
-import { ComponentProps, createEffect, createSignal } from "solid-js";
+import { ComponentProps, createSignal } from "solid-js";
 import { z } from "zod";
 
 export interface FormOptions<Output, Def extends z.ZodTypeDef, Input> {
@@ -23,7 +23,7 @@ export function createForm<Output, Def extends z.ZodTypeDef, Input>({
         setErrors(
           (errors) =>
             Object.fromEntries(
-              Object.entries(errors).filter(([key, value]) => key !== field),
+              Object.entries(errors).filter(([key]) => key !== field),
             ) as FormErrors<Input>,
         );
         return setFields((fields) => ({

@@ -1,5 +1,5 @@
 import { Navigate } from "@solidjs/router";
-import { Component, ComponentProps, JSX, Show } from "solid-js";
+import { Component, ComponentProps, Show } from "solid-js";
 
 import { useRequiredContext } from "../../../utils/use-required-context";
 import { SessionsContext } from "../context";
