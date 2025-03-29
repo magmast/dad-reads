@@ -1,4 +1,5 @@
 import PocketBase from "pocketbase";
+
 import { VITE_POCKET_BASE_URL } from "../../../env";
 import { Audiobook } from "../entity";
 import { AudiobooksRepository } from "./repository";
@@ -6,7 +7,7 @@ import { AudiobooksRepository } from "./repository";
 export class PocketBaseAudiobooksRepository implements AudiobooksRepository {
   constructor(
     private readonly pocketBase: PocketBase,
-    private readonly collectionName: string
+    private readonly collectionName: string,
   ) {}
 
   async findAll() {

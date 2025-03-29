@@ -1,29 +1,32 @@
 import { createQuery } from "@tanstack/solid-query";
-import { createMemo, createSignal, For, Show } from "solid-js";
+import { For, Show, createMemo, createSignal } from "solid-js";
+
+import { Player } from "../components/player";
 import { AudiobooksContext } from "../features/audiobooks/context";
 import { Audiobook } from "../features/audiobooks/entity";
-import { useRequiredContext } from "../utils/use-required-context";
 import { createAuthorQuery } from "../features/authors/api/create-author-query";
-import { Player } from "../components/player";
 import { withSession } from "../features/sessions/utils/with-session";
+import { useRequiredContext } from "../utils/use-required-context";
 
 export default withSession(() => {
   const { audiobooksRepository } = useRequiredContext(AudiobooksContext);
 
   const audiobooks = createQuery(
     () => ["audiobooks"],
-    async () => await audiobooksRepository.findAll()
+    async () => await audiobooksRepository.findAll(),
   );
 
   const [selectedAudiobookId, setSelectedAudiobookId] = createSignal<string>();
 
   const selectedAudiobook = createMemo(() =>
-    audiobooks.data?.find((audiobook) => audiobook.id === selectedAudiobookId())
+    audiobooks.data?.find(
+      (audiobook) => audiobook.id === selectedAudiobookId(),
+    ),
   );
 
   return (
     <>
-      <header class="p-2 flex justify-center">
+      <header class="flex justify-center p-2">
         <h1 class="text-2xl">Audiobooks</h1>
       </header>
 

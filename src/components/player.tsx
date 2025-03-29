@@ -1,14 +1,15 @@
 import { TbPlayerPause, TbPlayerPlay } from "solid-icons/tb";
 import {
-  createEffect,
-  createResource,
   ErrorBoundary,
   JSX,
-  on,
-  onCleanup,
   Show,
   Suspense,
+  createEffect,
+  createResource,
+  on,
+  onCleanup,
 } from "solid-js";
+
 import { AudioContext } from "../features/audio/context";
 import { Audio } from "../features/audio/infra/audio";
 import { Audiobook } from "../features/audiobooks/entity";
@@ -30,7 +31,7 @@ export function Player(props: PlayerProps) {
     async (url, { value }) => {
       value?.close();
       return await audioApi.open(url);
-    }
+    },
   );
 
   const author = createAuthorQuery(props.audiobook.author);
@@ -40,7 +41,7 @@ export function Player(props: PlayerProps) {
       <ErrorBoundary fallback={<p>Failed to load the audiobook.</p>}>
         <Suspense
           fallback={
-            <div class="h-[68px] flex items-center justify-center">
+            <div class="flex h-[68px] items-center justify-center">
               <Progress size={6} />
             </div>
           }
@@ -68,7 +69,7 @@ function Root(props: RootProps) {
       <div class="h-[84px]" />
 
       <div class="fixed bottom-0 left-0 right-0 p-2">
-        <div class="w-full rounded bg-slate-800 shadow-xl overflow-hidden">
+        <div class="w-full overflow-hidden rounded bg-slate-800 shadow-xl">
           {props.children}
         </div>
       </div>
@@ -90,7 +91,7 @@ function Loaded(props: LoadedProps) {
 
   return (
     <>
-      <div class="w-full flex items-center gap-2">
+      <div class="flex w-full items-center gap-2">
         <img class="h-16" src={props.audiobook.image} />
         <div class="flex flex-grow pr-4">
           <div>
@@ -111,9 +112,9 @@ function Loaded(props: LoadedProps) {
         </div>
       </div>
 
-      <div class="relative w-full h-1 bg-slate-700 z-10">
+      <div class="relative z-10 h-1 w-full bg-slate-700">
         <div
-          class="w-full bg-blue-600 h-full"
+          class="h-full w-full bg-blue-600"
           style={{
             "transform-origin": "left",
             transform: `scaleX(${position() / props.audio.duration})`,

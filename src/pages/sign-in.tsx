@@ -1,7 +1,8 @@
 import { useNavigate } from "@solidjs/router";
 import clsx from "clsx";
-import { ComponentProps, createSignal, Show } from "solid-js";
+import { ComponentProps, Show, createSignal } from "solid-js";
 import { z } from "zod";
+
 import { SessionsContext } from "../features/sessions/context";
 import { InvalidCredentialsError } from "../features/sessions/errors/invalid-credentials";
 import { withoutSession } from "../features/sessions/utils/without-session";
@@ -23,7 +24,7 @@ export default withoutSession(() => {
   const navigate = useNavigate();
 
   return (
-    <main class="flex flex-col justify-center items-center gap-8 min-h-screen">
+    <main class="flex min-h-screen flex-col items-center justify-center gap-8">
       <h1 class="text-3xl">Sign in</h1>
 
       <form
@@ -44,14 +45,14 @@ export default withoutSession(() => {
       >
         <Input
           {...form.register("email")}
-          class="p-2 bg-slate-900 rounded"
+          class="rounded bg-slate-900 p-2"
           placeholder="Email"
           error={form.state.errors().email}
         />
 
         <Input
           {...form.register("password")}
-          class="p-2 bg-slate-900 rounded"
+          class="rounded bg-slate-900 p-2"
           placeholder="Password"
           type="password"
           error={form.state.errors().password}
@@ -61,7 +62,7 @@ export default withoutSession(() => {
           <ErrorMessage class="text-center">Invalid credentials.</ErrorMessage>
         </Show>
 
-        <button class="p-2 bg-blue-900 rounded" type="submit">
+        <button class="rounded bg-blue-900 p-2" type="submit">
           Sign in
         </button>
       </form>
@@ -78,7 +79,7 @@ function Input(props: InputProps) {
     <div>
       <input
         {...props}
-        class={clsx("p-2 bg-slate-900 rounded", props.class, {
+        class={clsx("rounded bg-slate-900 p-2", props.class, {
           "border border-red-900": props.error,
         })}
       />

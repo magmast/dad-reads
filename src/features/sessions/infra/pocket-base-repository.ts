@@ -1,11 +1,12 @@
 import PocketBase, { ClientResponseError } from "pocketbase";
+
 import { InvalidCredentialsError } from "../errors/invalid-credentials";
 import { SessionRepository } from "./repository";
 
 export class PocketBaseSessionRepository implements SessionRepository {
   constructor(
     private readonly pocketBase: PocketBase,
-    private readonly usersCollectionName: string
+    private readonly usersCollectionName: string,
   ) {}
 
   find() {

@@ -1,5 +1,6 @@
 import { Howl } from "howler";
 import { BehaviorSubject } from "rxjs";
+
 import { Audio } from "./audio";
 
 export class HowlerAudio implements Audio {

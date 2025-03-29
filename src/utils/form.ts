@@ -23,8 +23,8 @@ export function createForm<Output, Def extends z.ZodTypeDef, Input>({
         setErrors(
           (errors) =>
             Object.fromEntries(
-              Object.entries(errors).filter(([key, value]) => key !== field)
-            ) as FormErrors<Input>
+              Object.entries(errors).filter(([key, value]) => key !== field),
+            ) as FormErrors<Input>,
         );
         return setFields((fields) => ({
           ...fields,
@@ -42,7 +42,7 @@ export function createForm<Output, Def extends z.ZodTypeDef, Input>({
         if (error instanceof z.ZodError) {
           const newErrors = error.errors.reduce(
             (acc, issue) => ({ ...acc, [issue.path[0]]: issue.message }),
-            {} as FormErrors<Input>
+            {} as FormErrors<Input>,
           );
 
           setErrors(() => newErrors);

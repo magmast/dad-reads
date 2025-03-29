@@ -1,5 +1,6 @@
 import { Navigate } from "@solidjs/router";
 import { Component, Show } from "solid-js";
+
 import { useRequiredContext } from "../../../utils/use-required-context";
 import { SessionsContext } from "../context";
 import { Session } from "../entity";

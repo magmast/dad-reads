@@ -15,8 +15,8 @@ export function Progress(props: ProgressProps) {
   return (
     <div
       class={clsx(
-        "bg-blue-600 animate-ping rounded-full",
-        SIZE_CLASSES[props.size]
+        "animate-ping rounded-full bg-blue-600",
+        SIZE_CLASSES[props.size],
       )}
     />
   );
