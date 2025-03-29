@@ -1,0 +1,11 @@
+services:
+  pocketbase:
+    image: ghcr.io/magmast/pocketbase:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - pocketbase-data:/data
+      - ./migrations:/migrations:Z
+
+volumes:
+  pocketbase-data:
